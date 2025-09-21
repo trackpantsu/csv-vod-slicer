@@ -1,6 +1,6 @@
-# TEMP
-# EDL based frame clipping tools
 #
+# CLI extension for auto-editor that converts CSVs to editor ready EDL timelines
+# Requires Auto-Editor - https://github.com/WyattBlue/auto-editor
 #
 import csv
 import argparse
@@ -8,7 +8,7 @@ import pathlib
 import subprocess
 
 parser = argparse.ArgumentParser(
-    prog="Trackpantsu CLI",
+    prog="trackpantsu/csv-vod-slicer",
     description="CSV/EDL interface for Auto-Editor",
     #    epilog="TBD",
 )
@@ -29,6 +29,12 @@ parser.add_argument(
     help="filename prefix for generated edits, EDL label characters and extensions will be appended to output",
 )
 parser.add_argument(
+    "-r",
+    "--rate",
+    required=True,
+    help="the framerate needs to be accurate to properly time the frame cuts from auto-editor. double check this value if cuts are out of sync",
+)
+parser.add_argument(
     "-e",
     "--export",
     default="resolve",
@@ -47,12 +53,6 @@ parser.add_argument(
     default="none",
     type=str,
     help="ignore all EDL label character codes that are not THIS value, helpful when fixing CSVs after edits have been generated",
-)
-parser.add_argument(
-    "-r",
-    "--rate",
-    required=True,
-    help="the framerate needs to be accurate to properly time the frame cuts from auto-editor. double check this value if cuts are out of sync",
 )
 
 args = parser.parse_args()
