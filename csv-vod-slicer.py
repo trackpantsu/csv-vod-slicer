@@ -113,8 +113,7 @@ with open(csv_path, newline="") as csvfile:
 # "0,f1" " " "f2,f3"
 cmd = " ".join(
     [
-        "auto-editor",
-        str(input_path),
+        "python3 -m auto_editor",
         "-o",
         str(output_path) + "-vod",
         "-fps " + str(input_rate),
@@ -123,11 +122,11 @@ cmd = " ".join(
         "--cut-out 0,",
     ]
 )
-
+#print(cmd)
 if focus == "none":
     framelist = []
     frameout = ""
-    end = "end"
+    end = "end "
 
     for vod in vodlist:
         framelist.append(vod[1])
@@ -135,7 +134,8 @@ if focus == "none":
     for frame in framelist:
         frameout += "".join([str(frame[0]), " ", str(frame[1]), ","])
 
-    exec = cmd + frameout + end
+    exec = cmd + frameout + end + str(input_path)
+    print(exec)
     subprocess.call(exec, shell=True)
 
 ordlist = set(ordlist)
@@ -149,8 +149,7 @@ for ord in ordlist:
     # "0,f1" " " "f2,f3"
     cmd = " ".join(
         [
-            "auto-editor",
-            str(input_path),
+            "python3 -m auto_editor",
             "-o",
             str(output_path) + "-" + chr(ord),
             "-fps " + str(input_rate),
@@ -160,9 +159,9 @@ for ord in ordlist:
         ]
     )
     frameout = ""
-    end = "end"
+    end = "end "
     for frame in framelist:
         frameout += "".join([str(frame[0]), " ", str(frame[1]), ","])
 
-    exec = cmd + frameout + end
+    exec = cmd + frameout + end + str(input_path)
     subprocess.call(exec, shell=True)
